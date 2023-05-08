@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,19 @@ Route::get('/hello', function() {
 });
 
 Route::get('/posts/{id}', function($id) {
-    ddd($id);
     return response('Post' . $id);
 })->where('id', '[0-9]+');
+
+Route::get('/search', function(Request $request) {
+    return $request->name . ' ' . $request->city;
+
+    // dd($request->name . ' ' . $request->city);
+
+    //dd($request);
+    // +query: Symfony\Component\HttpFoundation\InputBag {#51 ▼
+    //     #parameters: array:2 [▼
+    //       "name" => "Brad"
+    //       "city" => "Boston"
+    //     ]
+    //   }
+});
