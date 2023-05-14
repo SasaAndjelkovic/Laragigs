@@ -21,16 +21,3 @@ Route::get('/', function () {
             ]       
         ]);
 });
-
-Route::get('/hello', function() {
-    return response('<h1>Hello World</h1>')
-        ->header('foo', 'bar');
-});
-
-Route::get('/posts/{id}', function($id) {
-    return response('Post' . $id);
-})->where('id', '[0-9]+');
-
-Route::get('/search', function(Request $request) {
-    return $request->name . ' ' . $request->city;
-});
