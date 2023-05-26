@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -42,7 +43,9 @@ class ListingController extends Controller
 
         Listing::create($formFields);
 
-        return redirect('/');
+        // Session::flash('message', 'Listing Created');
+
+        return redirect('/')->with('message', 'Listing created successfully!');
     }
 
    
