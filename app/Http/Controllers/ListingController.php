@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,9 +11,7 @@ class ListingController extends Controller
     //Show all listings
     public function index() {
         return view('listings.index', [
-            // 'listings'=> Listing::latest()->get()
             'listings'=> Listing::latest()->filter(request(['tag', 'search']))->paginate(2)
-            // ->simplePaginate()
         ]);  
     }
 
@@ -42,12 +39,13 @@ class ListingController extends Controller
             'description' => 'required'
         ]);
 
-        Listing::create($formFields);
+        if($request->hasFile('logo')){
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+        }
 
-        // Session::flash('message', 'Listing Created');
+        Listing::create($formFields);
 
         return redirect('/')->with('message', 'Listing created successfully!');
     }
 
-   
 }
